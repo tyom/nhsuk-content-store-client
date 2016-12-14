@@ -1,0 +1,10 @@
+.Pages {
+  display: flex;
+  flex: 1;
+}
+
+.Pages-preview {
+  height: 100%;
+  width: 100%;
+  border: 1px solid color(#000 a(.4));
+}
