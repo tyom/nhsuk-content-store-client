@@ -18,7 +18,7 @@ class Pages extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { menuItems: [] };
+    this.state = { menuTree: {} };
   }
 
   componentDidMount() {
@@ -37,9 +37,9 @@ class Pages extends Component {
   }
 
   updateMenu() {
-    buildPagesTree().then(rootNode => {
+    buildPagesTree(this.props.params.pageId).then(tree => {
       this.setState({
-        menuItems: rootNode.meta.children
+        menuTree: tree
       });
     });
   }
@@ -68,7 +68,7 @@ class Pages extends Component {
     return (
       <div className={styles.Pages}>
         <Sidebar>
-          <Menu title="Explore pages" items={this.state.menuItems}/>
+          <Menu title="Explore pages" tree={this.state.menuTree}/>
         </Sidebar>
         <Main>
           {this.renderPage()}
