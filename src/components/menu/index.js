@@ -5,27 +5,6 @@ import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
 import styles from './styles.css';
 
-const menuData = [
-  {
-    id: 2,
-    title: 'symptoms',
-    children: [
-      {
-        id: 5,
-        title: 'Headache',
-        children: [
-          {
-            id: 12,
-            title: 'Something else',
-          }
-        ]
-      }
-    ]
-  }, {
-    id: 3,
-    title: 'foobar'
-  }
-];
 
 function buildMenu(nodes) {
   return (
@@ -36,8 +15,8 @@ function buildMenu(nodes) {
             {renderIcon(node)}
             {node.title}
           </Link>
-          {Array.isArray(node.children)
-            ? buildMenu(node.children)
+          {Array.isArray(node.meta.children)
+            ? buildMenu(node.meta.children)
             : null
           }
         </li>
@@ -47,39 +26,20 @@ function buildMenu(nodes) {
 }
 
 function renderIcon(node) {
-  if (!node.children) {return null;}
+  if (!node.meta.children || node.meta.children.count === 0) {return null;}
 
   return (
-    <FaAngleRight/>
+    <FaAngleDown/>
   );
 }
 
 const Menu = ({ title, items = [] }) => {
   if (!items.length) {return null;}
 
-  return buildMenu(items);
-
-  // getChildren(items);
-
-  // const menu = items.map(item => {
-  //   return getChildren(item);
-  // });
-  //
-  // console.log('menu', menu);
-
   return (
     <nav className={styles.Menu}>
       { title ? <h2 className={styles['Menu-title']}>{title}</h2> : null }
-      <ul className={styles['Menu-list']}>
-        {menuData.map(item =>
-          <li className={styles['Menu-item']} key={item.id}>
-            <Link to={`/pages/${item.id}`}>
-              {item.meta.children.count ? <FaAngleRight/> : null }
-              {item.title}
-              </Link>
-          </li>
-        )}
-      </ul>
+      {buildMenu(items)}
     </nav>
   );
 };

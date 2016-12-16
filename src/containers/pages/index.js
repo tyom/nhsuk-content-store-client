@@ -5,7 +5,7 @@ import Sidebar from '../../components/sidebar';
 import Menu from '../../components/menu';
 import Main from '../../components/main';
 
-import {getPage, getChildrenOfPage} from '../../api';
+import {getPage, buildPagesTree, getChildrenOfPage} from '../../api';
 
 import styles from './styles.css';
 
@@ -37,16 +37,9 @@ class Pages extends Component {
   }
 
   updateMenu() {
-    const pageId = this.props.params.pageId || 3;
-    // const isIndexPage = pageId === 1;
-
-    // const currentMenuItems = this.state.menuItems;
-
-    getChildrenOfPage(pageId).then(data => {
-      // data = pageId === 1 ? data[0] : data;
-
+    buildPagesTree().then(rootNode => {
       this.setState({
-        menuItems: data.items
+        menuItems: rootNode.meta.children
       });
     });
   }
@@ -57,9 +50,7 @@ class Pages extends Component {
       return this.setState({pageData: undefined});
     }
 
-
     getPage(pageId).then(data => {
-      console.log(data);
       this.setState({
         pageData: data
       });
@@ -74,7 +65,6 @@ class Pages extends Component {
   }
 
   render() {
-
     return (
       <div className={styles.Pages}>
         <Sidebar>

@@ -1,5 +1,24 @@
 import fetch from 'isomorphic-fetch';
+import find from 'lodash/find';
+import get from 'lodash/get';
 import {WAGTAIL_API_BASE_URL} from './constants';
+
+
+function unFlatten(collection = [], parent, tree = []) {
+  const children = collection.filter(child => get(child, 'meta.parent.id') === parent.id);
+
+  if (children.length) {
+    parent.meta.children = children;
+
+    if (parent.id === 3) {
+      tree = parent;
+    }
+
+    children.forEach(child => unFlatten(collection, child));
+  }
+
+  return tree;
+}
 
 function fetchData(url) {
   return fetch(url, { credentials: 'include' })
@@ -12,6 +31,11 @@ function fetchFromWagtail(path) {
 
 export function getPage(pageId) {
   return fetchFromWagtail(`/pages/${pageId}/`);
+}
+
+export function buildPagesTree() {
+  return fetchFromWagtail('/pages/?fields=parent')
+    .then(body => unFlatten(body.items, find(body.items, {id: 3})));
 }
 
 export function getChildrenOfPage(pageId) {
