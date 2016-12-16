@@ -7,17 +7,13 @@ import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import styles from './styles.css';
 
 
-function clickNode(evt) {
-  console.log(evt);
-}
-
 function buildMenu(tree) {
   if (isEmpty(tree) || !Array.isArray(tree.meta.children)) {return null;}
 
   return (
     <ul className={styles['Menu-list']}>
       {tree.meta.children.map(node =>
-        <li className={styles['Menu-item']} key={node.id} onClick={() => clickNode(node)}>
+        <li className={styles['Menu-item']} key={node.id}>
           <Link to={`/pages/${node.id}`}>
             {renderIcon(node)}
             {node.title}
@@ -30,24 +26,18 @@ function buildMenu(tree) {
 }
 
 function renderIcon(node) {
-  if (!node.meta.children || node.meta.children.count === 0) {return null;}
+  if (!(node.meta.children && node.meta.children.length) || node.meta.children.count === 0) {return null;}
 
   return (
     node.isExpanded ? <FaAngleDown/> : <FaAngleRight/>
   );
 }
 
-function doFilter(evt) {
-  console.log(evt.target.value);
-}
-
-const Menu = ({ title, tree }) => {
-  if (isEmpty(tree)) {return null;}
-
+const Menu = ({ title, tree, onSearch }) => {
   return (
     <nav className={styles.Menu}>
       { title ? <h2 className={styles['Menu-title']}>{title}</h2> : null }
-      <input type="text" onKeyPress={doFilter}/>
+      <input type="text" placeholder="Find page" onKeyUp={onSearch} className={styles['Menu-search']}/>
       {buildMenu(tree)}
     </nav>
   );

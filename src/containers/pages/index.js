@@ -5,14 +5,12 @@ import Sidebar from '../../components/sidebar';
 import Menu from '../../components/menu';
 import Main from '../../components/main';
 
-import {getPage, buildPagesTree, getChildrenOfPage} from '../../api';
+import {getPage, buildPagesTree, filterTree} from '../../api';
 
 import styles from './styles.css';
 
 
-function getChildren() {
-
-}
+let initialTree;
 
 class Pages extends Component {
   constructor(props) {
@@ -38,6 +36,7 @@ class Pages extends Component {
 
   updateMenu() {
     buildPagesTree(this.props.params.pageId).then(tree => {
+      initialTree = tree;
       this.setState({
         menuTree: tree
       });
@@ -64,11 +63,17 @@ class Pages extends Component {
     return <iframe className={styles['Pages-preview']} src={this.state.pageData.meta.html_url} frameBorder="0"></iframe>;
   }
 
+  doTreeFilter(evt) {
+    this.setState({
+      menuTree: filterTree(initialTree, evt.target.value)
+    });
+  }
+
   render() {
     return (
       <div className={styles.Pages}>
         <Sidebar>
-          <Menu title="Explore pages" tree={this.state.menuTree}/>
+          <Menu title="Explore pages" tree={this.state.menuTree} onSearch={(evt) => this.doTreeFilter(evt)}/>
         </Sidebar>
         <Main>
           {this.renderPage()}

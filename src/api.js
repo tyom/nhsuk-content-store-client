@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import find from 'lodash/find';
+import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import {WAGTAIL_API_BASE_URL} from './constants';
 
@@ -41,6 +42,27 @@ function setActiveNodes(tree, id) {
   return null;
 }
 
+export function filterTree(tree, term) {
+  // if (!tree.meta.children || tree.meta.children.count === 0) {return null;}
+  const modifiedTree = cloneDeep(tree);
+  const children = [];
+
+  for (let i=0; i < modifiedTree.meta.children.length; i++) {
+    const child = modifiedTree.meta.children[i];
+    const found = filterTree(child, term);
+    if (found) {
+      children.push(found);
+    }
+  }
+  modifiedTree.meta.children = children;
+
+  if (modifiedTree.meta.children.length || modifiedTree.title && modifiedTree.title.search(new RegExp(term, 'ig')) > -1) {
+    modifiedTree.isExpanded = true;
+    return modifiedTree;
+  }
+  return null;
+}
+
 function fetchData(url) {
   return fetch(url, { credentials: 'include' })
     .then(response => response.json());
@@ -60,18 +82,9 @@ export function buildPagesTree(expandedId=3) {
     .then(tree => {
       setActiveNodes(tree, expandedId);
       return tree;
-    })
+    });
 }
 
 export function getChildrenOfPage(pageId) {
   return fetchFromWagtail(`/pages/?child_of=${pageId}&fields=parent,children`);
-
-  // if (pageId === 1) {
-  //   pageData = pageData.then(data => {
-  //     const requests = data.items.map(item => fetchData(item.meta.children.listing_url));
-  //     return Promise.all(requests);
-  //   })
-  // }
-
-  // return pageData;
 }

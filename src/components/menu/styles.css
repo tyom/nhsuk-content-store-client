@@ -39,3 +39,18 @@
     size: 17px;
   }
 }
+
+.Menu-search {
+  background-color: #fff;
+  font-size: 1em;
+  padding: 6px;
+  margin: 10px 0;
+  width: 100%;
+  border: 1px solid transparent;
+  outline: 0;
+
+  &:focus {
+    border-color: color(#000 a(.8));
+    box-shadow: 0 0 0 2px color(#ffca55);
+  }
+}
