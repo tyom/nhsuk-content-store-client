@@ -1,0 +1,35 @@
+.PageSizeSelector {
+  position: absolute;
+  top: 6px;
+  right: 20px;
+  margin: 0;
+  padding: 0;
+
+  button {
+    border: 1px solid #777;
+    border-radius: 3px;
+    color: #333;
+    padding: 5px;
+    margin: 1px;
+    background: none;
+    cursor: pointer;
+    outline: none;
+
+    &:hover,
+    &:focus {
+      border-color: #0072c6;
+    }
+
+    &:active,
+    &.is-active {
+      background-color: #0072c6;
+      border-color: #0072c6;
+      color: #fff;
+    }
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}

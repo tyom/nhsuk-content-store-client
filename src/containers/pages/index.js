@@ -1,9 +1,10 @@
 import React, {PropTypes, Component} from 'react';
-import get from 'lodash';
+import classNames from 'classnames';
 
 import Sidebar from '../../components/sidebar';
 import Menu from '../../components/menu';
 import Main from '../../components/main';
+import PageSizeSelector from '../../components/page-size-selector';
 
 import {getPage, buildPagesTree, filterTree} from '../../api';
 
@@ -16,7 +17,10 @@ class Pages extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { menuTree: {} };
+    this.state = {
+      menuTree: {},
+      previewSize: 'large'
+    };
   }
 
   componentDidMount() {
@@ -46,7 +50,7 @@ class Pages extends Component {
   updatePage() {
     const pageId = this.props.params.pageId;
     if (!pageId) {
-      return this.setState({pageData: undefined});
+      return this.setState({ pageData: undefined });
     }
 
     getPage(pageId).then(data => {
@@ -60,10 +64,29 @@ class Pages extends Component {
     if (!this.state.pageData) {
       return <h2>Pages</h2>;
     }
-    return <iframe className={styles['Pages-preview']} src={this.state.pageData.meta.html_url} frameBorder="0"></iframe>;
+
+    const iframeClassName = classNames(styles['Pages-preview'], {
+      [styles['Pages-preview--large']]: this.state.previewSize === 'large',
+      [styles['Pages-preview--medium']]: this.state.previewSize === 'medium',
+      [styles['Pages-preview--small']]: this.state.previewSize === 'small'
+    });
+
+    return (
+      <iframe
+        className={iframeClassName}
+        src={this.state.pageData.meta.html_url}
+        frameBorder="0"
+      ></iframe>
+    );
   }
 
-  doTreeFilter(evt) {
+  setPreviewSize(size) {
+    this.setState({
+      previewSize: size
+    });
+  }
+
+  filterTree(evt) {
     this.setState({
       menuTree: filterTree(initialTree, evt.target.value)
     });
@@ -73,9 +96,10 @@ class Pages extends Component {
     return (
       <div className={styles.Pages}>
         <Sidebar>
-          <Menu title="Explore pages" tree={this.state.menuTree} onSearch={(evt) => this.doTreeFilter(evt)}/>
+          <Menu title="Explore pages" tree={this.state.menuTree} onSearch={evt => this.filterTree(evt)}/>
         </Sidebar>
         <Main>
+          <PageSizeSelector onChange={size => this.setPreviewSize(size)}/>
           {this.renderPage()}
         </Main>
       </div>

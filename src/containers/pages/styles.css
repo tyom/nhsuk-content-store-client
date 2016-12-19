@@ -7,4 +7,19 @@
   height: 100%;
   width: 100%;
   border: 1px solid color(#000 a(.4));
+  display: block;
+  margin: auto;
+  transition: 400ms max-width;
+}
+
+.Pages-preview--large {
+  max-width: 100%;
+}
+
+.Pages-preview--medium {
+  max-width: 640px;
+}
+
+.Pages-preview--small {
+  max-width: 320px;
 }

@@ -1,5 +1,6 @@
 .Main {
-  padding: 20px;
+  padding: 50px 20px 20px;
   background: #ddd;
   flex: 1;
+  position: relative;
 }
