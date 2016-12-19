@@ -1,46 +1,72 @@
-import React from 'react';
+import React, {Component} from 'react';
+import classNames from 'classnames';
 import {Link} from 'react-router';
 import isEmpty from 'lodash/isEmpty';
-import FaAngleRight from 'react-icons/lib/fa/angle-right';
-import FaAngleDown from 'react-icons/lib/fa/angle-down';
+import GoChevronRight from 'react-icons/lib/go/chevron-right';
+import GoChevronDown from 'react-icons/lib/go/chevron-down';
 
 import styles from './styles.css';
 
 
-function buildMenu(tree) {
-  if (isEmpty(tree) || !Array.isArray(tree.meta.children)) {return null;}
+class Menu extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <ul className={styles['Menu-list']}>
-      {tree.meta.children.map(node =>
-        <li className={styles['Menu-item']} key={node.id}>
-          <Link to={`/pages/${node.id}`}>
-            {renderIcon(node)}
-            {node.title}
-          </Link>
-          {node.isExpanded ? buildMenu(node): null}
-        </li>
-      )}
-    </ul>
-  );
+  handleToggle(evt, node) {
+    evt.preventDefault();
+    node.isExpanded = !node.isExpanded;
+    this.forceUpdate();
+  }
+
+  renderMenu(tree) {
+    if (isEmpty(tree) || !Array.isArray(tree.meta.children)) {return null;}
+
+    const augmentedMenu = tree.meta.children;
+
+    return (
+      <ul className={styles['Menu-list']}>
+        {augmentedMenu.map(node =>
+          <li key={node.id} className={classNames(styles['Menu-item'], {
+            [styles['is-selected']]: node.id === this.props.selectedId
+          })}>
+            {this.renderIcon(node)}
+            <Link to={`/pages/${node.id}`}>
+              {node.title}
+            </Link>
+            {node.isExpanded ? this.renderMenu(node): null}
+          </li>
+        )}
+      </ul>
+    );
+  }
+
+  renderIcon(node) {
+    if (!(node.meta.children && node.meta.children.length) || node.meta.children.count === 0) {
+      return null;
+    }
+
+    return (
+      <button className={styles['Menu-toggle']} onClick={evt => this.handleToggle(evt, node)}>
+        {node.isExpanded ? <GoChevronDown/> : <GoChevronRight/>}
+      </button>
+    );
+  }
+
+  render() {
+    return (
+      <nav className={styles.Menu}>
+        { this.props.title ? <h2 className={styles['Menu-title']}>{this.props.title}</h2> : null }
+        <input
+          type="text"
+          placeholder="Find page"
+          onKeyUp={this.props.onSearch}
+          className={styles['Menu-search']}
+        />
+        {this.renderMenu(this.props.tree)}
+      </nav>
+    );
+  }
 }
-
-function renderIcon(node) {
-  if (!(node.meta.children && node.meta.children.length) || node.meta.children.count === 0) {return null;}
-
-  return (
-    node.isExpanded ? <FaAngleDown/> : <FaAngleRight/>
-  );
-}
-
-const Menu = ({ title, tree, onSearch }) => {
-  return (
-    <nav className={styles.Menu}>
-      { title ? <h2 className={styles['Menu-title']}>{title}</h2> : null }
-      <input type="text" placeholder="Find page" onKeyUp={onSearch} className={styles['Menu-search']}/>
-      {buildMenu(tree)}
-    </nav>
-  );
-};
 
 export default Menu;

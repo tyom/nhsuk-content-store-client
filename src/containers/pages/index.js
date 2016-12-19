@@ -96,10 +96,17 @@ class Pages extends Component {
     return (
       <div className={styles.Pages}>
         <Sidebar>
-          <Menu title="Explore pages" tree={this.state.menuTree} onSearch={evt => this.filterTree(evt)}/>
+          <Menu
+            title="Explore pages"
+            tree={this.state.menuTree}
+            onSearch={evt => this.filterTree(evt)}
+            selectedId={+this.props.params.pageId}
+          />
         </Sidebar>
         <Main>
-          <PageSizeSelector onChange={size => this.setPreviewSize(size)}/>
+          <header className={styles['Main-header']}>
+            <PageSizeSelector onChange={size => this.setPreviewSize(size)}/>
+          </header>
           {this.renderPage()}
         </Main>
       </div>

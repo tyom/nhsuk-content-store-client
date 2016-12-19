@@ -3,7 +3,7 @@
 
 .Menu-title {
   color: #999;
-  margin: -10px 0 10px;
+  margin: 0 0 3px;
   font-size: 1.4em;
   font-weight: 400;
 }
@@ -19,9 +19,11 @@
 }
 
 .Menu-item {
+  position: relative;
+
   a {
     display: block;
-    padding: 8px 8px 8px 21px;
+    padding: 8px 8px 8px 40px;
     text-decoration: none;
 
     &:hover {
@@ -33,18 +35,39 @@
     }
   }
 
+  &.is-selected {
+    > a {
+      background-color: #111;
+    }
+  }
+
+  button {
+    padding: 3px;
+    border: 0;
+    background: none;
+    outline: none;
+    color: #aaa;
+    position: absolute;
+    top: 5px;
+    left: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
   svg {
-    margin-left: -18px;
-    float: left;
+    display: block;
     size: 17px;
   }
 }
 
 .Menu-search {
-  background-color: #fff;
+  background-color: #ccc;
   font-size: 1em;
   padding: 6px;
-  margin: 10px 0;
+  margin: 20px 0;
   width: 100%;
   border: 1px solid transparent;
   outline: 0;
@@ -52,5 +75,6 @@
   &:focus {
     border-color: color(#000 a(.8));
     box-shadow: 0 0 0 2px color(#ffca55);
+    background-color: #fff;
   }
 }
