@@ -27,7 +27,7 @@ class PageSizeSelector extends Component {
     const className = classNames({ [styles['is-active']]: this.state.selectedSize === size });
 
     return (
-      <button onClick={() => this.setSize(size)} className={className}>
+      <button onClick={() => this.setSize(size)} className={className} title={`Switch to ${size} screen preview`}>
         {icon}
       </button>
     );

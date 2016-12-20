@@ -13,12 +13,15 @@ const PageEditFieldset = ({legend, children}) => (
 const PageEdit = ({data}) => (
   <div className={styles['PageEdit']}>
     <PageEditFieldset legend="Header">
-      <label htmlFor="title">Page title</label>
-      <input type="text" id="title" value={data.title}/>
+      <div className={styles['PageEdit-group']}>
+        <label htmlFor="title">Page title</label>
+        <input type="text" id="title" value={data.title}/>
+      </div>
     </PageEditFieldset>
     <PageEditFieldset legend="Main">
       {data.main && data.main.map(item =>
-        <div className={styles['PageEdit-field']}>
+        <div className={styles['PageEdit-group']}>
+          <label htmlFor="">Page content</label>
           <textarea value={item.value}/>
         </div>
       )}
