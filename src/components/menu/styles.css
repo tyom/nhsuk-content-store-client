@@ -38,7 +38,7 @@
     }
 
     &:active {
-      background-color: color(#0072c6 a(.5));
+      background-color: color(#43b1b0 a(.2));
     }
 
     &:first-child::before {

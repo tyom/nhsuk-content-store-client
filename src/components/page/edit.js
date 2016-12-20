@@ -14,7 +14,7 @@ function onAddition(module) {
 }
 
 const EditFieldset = ({ legend, children, modules=DEFAULT_MODULES }) => (
-  <fieldset className={styles['PageEdit-fieldset']}>
+  <fieldset className={styles['Edit-fieldset']}>
     <legend>{legend}</legend>
     {children}
     <AddModule modules={modules} onAddition={onAddition}/>
@@ -22,17 +22,16 @@ const EditFieldset = ({ legend, children, modules=DEFAULT_MODULES }) => (
 );
 
 const Edit = ({ data }) => (
-  <div className={styles['PageEdit']}>
+  <div className={styles['Edit']}>
     <EditFieldset legend="Header">
-      <div className={styles['PageEdit-group']}>
+      <div className={styles['Edit-group']}>
         <label htmlFor="title">Page title</label>
         <input type="text" id="title" value={data.title}/>
       </div>
     </EditFieldset>
     <EditFieldset legend="Main">
-      {data.main && data.main.map(item =>
-        <div className={styles['PageEdit-group']}>
-          {console.log(item)}
+      {data.main && data.main.map((item, i) =>
+        <div className={styles['Edit-group']} key={item.type + i}>
           <label htmlFor="">Page content</label>
           <textarea value={item.value}/>
         </div>

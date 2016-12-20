@@ -1,4 +1,4 @@
-.PageEdit {
+.Edit {
   input[type=text],
   textarea {
     font-size: 1.1em;
@@ -20,7 +20,7 @@
   }
 }
 
-.PageEdit-fieldset {
+.Edit-fieldset {
   border: 1px solid #ccc;
   padding: 10px;
 
@@ -36,8 +36,8 @@
   }
 }
 
-.PageEdit-group {
-  + .PageEdit-group {
+.Edit-group {
+  + .Edit-group {
     margin-top: 10px;
   }
 
