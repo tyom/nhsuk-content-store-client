@@ -1,11 +1,12 @@
 .PageSizeSelector {
   margin: 0;
   padding: 0;
+  float: right;
+  border: 1px solid color(#111 a(.5));
 
   button {
     border: 0;
     color: #444;
-    margin-left: -1px;
     padding: 3px 6px;
     background: none;
     cursor: pointer;
@@ -13,12 +14,13 @@
 
     &:hover,
     &:focus {
-      color: #111;
+      background-color: color(#fff a(.3));
     }
 
     &:active,
     &.is-active {
-      color: #0072c6;
+      background-color: color(#111 a(.5));
+      color: #fff;
     }
   }
 

@@ -10,11 +10,7 @@
     left: 0;
     right: 0;
     padding: 6px 20px;
-    background-color: #ccc;
+    background-color: #bcd6b2;
     overflow: hidden;
-
-    > menu {
-      float: right;
-    }
   }
 }

@@ -1,0 +1,33 @@
+.PageEdit {
+  input[type=text],
+  textarea {
+    font-size: 1.1em;
+    padding: 8px;
+    border: 1px solid #999;
+    display: block;
+    width: 100%;
+  }
+
+  textarea {
+    min-height: 200px;
+  }
+}
+
+.PageEdit-fieldset {
+  border: 1px solid #aaa;
+
+  + fieldset {
+    margin-top: 20px;
+  }
+
+  legend {
+    padding: 10px;
+    font-size: 1.3em;
+  }
+}
+
+.PageEdit-field {
+  + .PageEdit-field {
+    margin-top: 10px;
+  }
+}

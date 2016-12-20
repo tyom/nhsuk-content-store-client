@@ -5,6 +5,8 @@ import Sidebar from '../../components/sidebar';
 import Menu from '../../components/menu';
 import Main from '../../components/main';
 import PageSizeSelector from '../../components/page-size-selector';
+import PageToolbar from '../../components/page-toolbar';
+import PageEdit from '../../components/page-edit';
 
 import {getPage, buildPagesTree, filterTree} from '../../api';
 
@@ -19,7 +21,8 @@ class Pages extends Component {
 
     this.state = {
       menuTree: {},
-      previewSize: 'large'
+      previewSize: 'large',
+      selectedToolbarItem: 'Edit'
     };
   }
 
@@ -60,11 +63,7 @@ class Pages extends Component {
     });
   }
 
-  renderPage() {
-    if (!this.state.pageData) {
-      return <h2>Pages</h2>;
-    }
-
+  renderPreview() {
     const iframeClassName = classNames(styles['Pages-preview'], {
       [styles['Pages-preview--large']]: this.state.previewSize === 'large',
       [styles['Pages-preview--medium']]: this.state.previewSize === 'medium',
@@ -80,6 +79,21 @@ class Pages extends Component {
     );
   }
 
+  renderPage() {
+    if (!this.state.pageData) {
+      return <h2>Pages</h2>;
+    }
+
+
+    switch(this.state.selectedToolbarItem) {
+      case 'Edit':
+        return <PageEdit data={this.state.pageData}/>
+      case 'Preview':
+      case 'default':
+        return this.renderPreview();
+    }
+  }
+
   setPreviewSize(size) {
     this.setState({
       previewSize: size
@@ -89,6 +103,12 @@ class Pages extends Component {
   filterTree(evt) {
     this.setState({
       menuTree: filterTree(initialTree, evt.target.value)
+    });
+  }
+
+  handleToolbarToggle(evt) {
+    this.setState({
+      selectedToolbarItem: evt.target.textContent
     });
   }
 
@@ -105,7 +125,11 @@ class Pages extends Component {
         </Sidebar>
         <Main>
           <header className={styles['Main-header']}>
-            <PageSizeSelector onChange={size => this.setPreviewSize(size)}/>
+            <PageToolbar selectedItem={this.state.selectedToolbarItem} onChange={this.handleToolbarToggle.bind(this)}/>
+            {this.state.selectedToolbarItem === 'Preview'
+              ? <PageSizeSelector selectedSize={this.state.previewSize} onChange={size => this.setPreviewSize(size)}/>
+              : null
+            }
           </header>
           {this.renderPage()}
         </Main>

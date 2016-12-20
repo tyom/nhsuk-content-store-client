@@ -1,0 +1,32 @@
+.PageToolbar {
+  float: left;
+  margin: 0;
+  padding: 0;
+
+  > button {
+    border: 0;
+    padding: 4px 10px;
+    line-height: 24px;
+    color: #111;
+    font-size: 1.2em;
+    background: none;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 5px;
+    outline: 0;
+
+    &:hover {
+      background-color: color(#fff a(.3));
+    }
+
+    &:focus {
+
+    }
+
+    &:active,
+    &.is-selected {
+      background-color: #e27100;
+      color: #fff;
+    }
+  }
+}
