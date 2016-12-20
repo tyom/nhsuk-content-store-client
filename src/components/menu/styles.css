@@ -82,11 +82,16 @@
 .Menu-search {
   background-color: #ccc;
   font-size: 1em;
-  padding: 6px;
-  margin: 20px 0;
-  width: 100%;
+  padding: 6px 6px 6px 10px;
+  margin: 20px -10px;
+  width: calc(100% + 20px);
   border: 1px solid transparent;
+  border-radius: 20px;
   outline: 0;
+
+  &::-webkit-input-placeholder {
+    color: #888;
+  }
 
   &:focus {
     border-color: color(#000 a(.8));
