@@ -8,18 +8,23 @@ import styles from './styles.css';
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       currentSection: ''
-    }
+    };
   }
 
   componentDidMount() {
     this.setCurrentSection();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    const oldPath = prevProps.location.pathname;
+    const newPath = this.props.location.pathname;
+
+    if (oldPath === newPath) { return; }
+
     this.setCurrentSection();
   }
 

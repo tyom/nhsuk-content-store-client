@@ -24,8 +24,10 @@ class AddModule extends Component {
     return (
       <div className={styles['PageAddModule']}>
         <menu className={ classNames({ [styles['is-expanded']]: this.state.isExpanded }) }>
-          {this.props.modules.map(module =>
-            <button onClick={() => this.props.onAddition(module)}>{module.name}</button>
+          {this.props.modules.map((module, i) =>
+            <button onClick={() => this.props.onAddition(module)} key={module.name + i}>
+              {module.name}
+            </button>
           )}
         </menu>
         <button onClick={this.handleToggle.bind(this)}>
