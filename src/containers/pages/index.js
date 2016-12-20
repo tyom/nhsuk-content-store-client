@@ -4,9 +4,7 @@ import classNames from 'classnames';
 import Sidebar from '../../components/sidebar';
 import Menu from '../../components/menu';
 import Main from '../../components/main';
-import PageSizeSelector from '../../components/page-size-selector';
-import PageToolbar from '../../components/page-toolbar';
-import PageEdit from '../../components/page-edit';
+import {Toolbar, Edit, ViewportSize} from '../../components/page';
 
 import {getPage, buildPagesTree, filterTree} from '../../api';
 
@@ -87,7 +85,7 @@ class Pages extends Component {
 
     switch(this.state.selectedToolbarItem) {
       case 'Edit':
-        return <PageEdit data={this.state.pageData}/>
+        return <Edit data={this.state.pageData}/>
       case 'Preview':
       case 'default':
         return this.renderPreview();
@@ -125,9 +123,9 @@ class Pages extends Component {
         </Sidebar>
         <Main>
           <header className={styles['Main-header']}>
-            <PageToolbar selectedItem={this.state.selectedToolbarItem} onChange={this.handleToolbarToggle.bind(this)}/>
+            <Toolbar selectedItem={this.state.selectedToolbarItem} onChange={this.handleToolbarToggle.bind(this)}/>
             {this.state.selectedToolbarItem === 'Preview'
-              ? <PageSizeSelector selectedSize={this.state.previewSize} onChange={size => this.setPreviewSize(size)}/>
+              ? <ViewportSize selectedSize={this.state.previewSize} onChange={size => this.setPreviewSize(size)}/>
               : null
             }
           </header>

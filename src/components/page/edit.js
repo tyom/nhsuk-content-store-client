@@ -1,8 +1,8 @@
 import React from 'react';
 
-import PageAddModule from '../../components/page-add-module';
+import AddModule from '../../components/page/add-module';
 
-import styles from './styles.css';
+import styles from './styles/edit.css';
 
 
 const DEFAULT_MODULES = [
@@ -13,23 +13,23 @@ function onAddition(module) {
   console.log(module);
 }
 
-const PageEditFieldset = ({ legend, children, modules=DEFAULT_MODULES }) => (
+const EditFieldset = ({ legend, children, modules=DEFAULT_MODULES }) => (
   <fieldset className={styles['PageEdit-fieldset']}>
     <legend>{legend}</legend>
     {children}
-    <PageAddModule modules={modules} onAddition={onAddition}/>
+    <AddModule modules={modules} onAddition={onAddition}/>
   </fieldset>
 );
 
-const PageEdit = ({ data }) => (
+const Edit = ({ data }) => (
   <div className={styles['PageEdit']}>
-    <PageEditFieldset legend="Header">
+    <EditFieldset legend="Header">
       <div className={styles['PageEdit-group']}>
         <label htmlFor="title">Page title</label>
         <input type="text" id="title" value={data.title}/>
       </div>
-    </PageEditFieldset>
-    <PageEditFieldset legend="Main">
+    </EditFieldset>
+    <EditFieldset legend="Main">
       {data.main && data.main.map(item =>
         <div className={styles['PageEdit-group']}>
           {console.log(item)}
@@ -37,8 +37,8 @@ const PageEdit = ({ data }) => (
           <textarea value={item.value}/>
         </div>
       )}
-    </PageEditFieldset>
+    </EditFieldset>
   </div>
 );
 
-export default PageEdit;
+export default Edit;

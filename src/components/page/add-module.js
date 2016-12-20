@@ -2,10 +2,10 @@ import React, {PropTypes, Component} from 'react';
 import classNames from 'classnames';
 import GoPlus from 'react-icons/lib/go/plus';
 
-import styles from './styles.css';
+import styles from './styles/add-module.css';
 
 
-class PageAddModule extends Component {
+class AddModule extends Component {
   constructor(props) {
     super(props);
 
@@ -36,9 +36,9 @@ class PageAddModule extends Component {
   }
 }
 
-PageAddModule.propTypes = {
+AddModule.propTypes = {
   modules: PropTypes.array,
   onAddition: PropTypes.func
 };
 
-export default PageAddModule;
+export default AddModule;

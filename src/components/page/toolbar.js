@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import styles from './styles.css';
+import styles from './styles/toolbar.css';
 
 
 const TOOLBAR_ITEMS = ['Preview', 'Edit', 'Attributes'];

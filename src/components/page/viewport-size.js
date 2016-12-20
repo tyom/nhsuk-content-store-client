@@ -4,10 +4,10 @@ import FaMobile from 'react-icons/lib/fa/mobile';
 import FaTablet from 'react-icons/lib/fa/tablet';
 import FaDesktop from 'react-icons/lib/fa/desktop';
 
-import styles from './styles.css';
+import styles from './styles/viewport-size.css';
 
 
-class PageSizeSelector extends Component {
+class ViewportSize extends Component {
   constructor(props) {
     super(props);
 
@@ -35,7 +35,7 @@ class PageSizeSelector extends Component {
 
   render() {
     return (
-      <menu className={styles['PageSizeSelector']}>
+      <menu className={styles['ViewportSize']}>
         {this.renderButton('small', <FaMobile/>)}
         {this.renderButton('medium', <FaTablet/>)}
         {this.renderButton('large', <FaDesktop/>)}
@@ -44,4 +44,4 @@ class PageSizeSelector extends Component {
   }
 }
 
-export default PageSizeSelector;
+export default ViewportSize;
