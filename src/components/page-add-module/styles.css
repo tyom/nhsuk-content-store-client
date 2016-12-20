@@ -1,0 +1,40 @@
+.PageAddModule {
+  background-color: #ccc;
+  padding: 10px;
+  margin: 10px -10px -10px;
+
+  button {
+    background: none;
+    border: 1px solid #444;
+    padding: 7px 10px;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+    margin-right: 10px;
+
+    &:focus,
+    &:hover {
+      background: color(#fff a(.5));
+    }
+
+    &:active {
+      background-color: #fff;
+    }
+  }
+
+  menu {
+    display: none;
+    margin: -7px -7px 7px;
+    background: #ddd;
+    padding: 10px;
+
+    &.is-expanded {
+      display: block;
+    }
+
+    button {
+      border-color: #888;
+      background-color: color(#000 a(.1));
+    }
+  }
+}
