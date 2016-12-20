@@ -32,5 +32,10 @@
       border-color: #111;
       background-color: #ddd;
     }
+
+    svg {
+      size: 20px;
+      margin: -4px 5px 0 0;
+    }
   }
 }

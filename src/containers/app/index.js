@@ -7,6 +7,28 @@ import styles from './styles.css';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      currentSection: ''
+    }
+  }
+
+  componentDidMount() {
+    this.setCurrentSection();
+  }
+
+  componentDidUpdate() {
+    this.setCurrentSection();
+  }
+
+  setCurrentSection() {
+    this.setState({
+      currentSection: this.props.location.pathname.replace(/\/(\w+)\/?.*/, '$1')
+    });
+  }
+
   render() {
     return (
       <div className={styles.App}>
@@ -15,7 +37,8 @@ class App extends Component {
             <Link to="/">NHS Content Store</Link>
           </h1>
           <Navbar>
-            <NavbarItem>Home</NavbarItem>
+            <NavbarItem path="/pages" isActive={this.state.currentSection === 'pages'}>Pages</NavbarItem>
+            <NavbarItem path="/images" isActive={this.state.currentSection === 'images'}>Images</NavbarItem>
           </Navbar>
         </header>
         {this.props.children}
