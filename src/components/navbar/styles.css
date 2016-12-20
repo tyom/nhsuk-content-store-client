@@ -1,5 +1,5 @@
 .Navbar {
-  margin: 8px 0;
+  margin: 0;
   font-size: 1.2em;
   float: left;
 }
@@ -12,11 +12,12 @@
 
 .Navbar-item {
   float: left;
-  margin: 0 20px;
 
   a {
     font-weight: 600;
     text-decoration: none;
+    display: block;
+    padding: 8px 20px;
 
     &:hover {
       text-decoration: underline;
