@@ -58,9 +58,9 @@ class Menu extends Component {
       <nav className={styles.Menu}>
         { this.props.title ? <h2 className={styles['Menu-title']}>{this.props.title}</h2> : null }
         <input
-          type="text"
+          type="search"
           placeholder="Find page"
-          onKeyUp={this.props.onSearch}
+          onChange={this.props.onSearch}
           className={styles['Menu-search']}
         />
         {this.renderMenu(this.props.tree)}
