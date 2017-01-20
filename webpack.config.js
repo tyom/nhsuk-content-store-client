@@ -31,7 +31,7 @@ module.exports = new Config()
       loaders: [
         {
           test: /\.css$/,
-          include: /src|example/,
+          include: /src/,
           loader: extractCss.extract('style',
             'css?modules&localIdentName=[local]_[hash:base64:4]!postcss')
         },
@@ -45,7 +45,7 @@ module.exports = new Config()
           test: /\.jsx?$/,
           include: [
             /node_modules\/react-icons/,
-            /src|example/
+            /src/
           ],
           loader: 'babel'
         }
