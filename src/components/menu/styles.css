@@ -50,7 +50,6 @@
   }
 
   &.is-selected {
-    box-shadow: 0 0 0 1px color(#fff a(.1));
     background-color: color(#000 a(.2));
 
     > a {
@@ -86,7 +85,7 @@
   margin: 20px -10px;
   width: calc(100% + 20px);
   border: 1px solid transparent;
-  border-radius: 20px;
+  border-radius: 5px;
   outline: 0;
 
   &::-webkit-input-placeholder {

@@ -21,17 +21,19 @@
 }
 
 .Edit-fieldset {
-  border: 1px solid #ccc;
+  border: 1px solid color(#000 a(.2));
+  border-radius: 3px;
   padding: 10px;
+  margin: 20px -10px 0;
 
-  + fieldset {
+  &:first-of-type {
     margin-top: 20px;
   }
 
   legend {
     padding: 0 5px;
     margin: 0 -5px;
-    color: #777;
+    color: color(#43b1b0 shade(30%));
     font-size: 1.3em;
   }
 }
